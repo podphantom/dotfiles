@@ -1,0 +1,37 @@
+[colors]
+foreground = "#c8d3f5"
+background = "#0f0f17"
+cursor_bg = "#ff9e64"
+cursor_border = "#ff9e64"
+cursor_fg = "#1f2335"
+selection_bg = "#2d4f67"
+selection_fg = "#c8d3f5"
+
+# ANSI colors (hacker style)
+ansi = [
+  "#1f2335",     # black
+  "#f7768e",     # red
+  "#9ece6a",     # green (neon)
+  "#e0af68",     # yellow
+  "#7aa2f7",     # blue
+  "#bb9af7",     # purple
+  "#7dcfff",     # cyan
+  "#a9b1d6"      # white
+]
+
+brights = [
+  "#414868",     # bright black
+  "#ff7a93",     # bright red
+  "#b9f27c",     # bright green (strong neon)
+  "#ffcc66",     # bright yellow
+  "#8ab4f8",     # bright blue
+  "#c7a3ff",     # bright purple
+  "#9cd1ff",     # bright cyan
+  "#d2d8ff"      # bright white
+]
+
+compose_cursor = "#ff9e64"
+
+[metadata]
+name = 'Kanagawa Hacker'
+origin_url = 'custom'
