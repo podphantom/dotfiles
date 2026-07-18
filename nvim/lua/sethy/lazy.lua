@@ -27,7 +27,6 @@ require("lazy").setup({
     -- import your plugins
     { import = "sethy.plugins" },
     {import = "sethy.plugins.lsp"},
-    {import="sethy.plugins.ai"}
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
