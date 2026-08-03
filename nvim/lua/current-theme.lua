@@ -1,1 +1,1 @@
-vim.cmd("colorscheme minischeme")
+vim.cmd("colorscheme tokyonight-moon")
