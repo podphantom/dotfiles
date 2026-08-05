@@ -48,12 +48,12 @@ vim.keymap.set(
 -- Executes shell command from in here making file executable
 vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true, desc = "makes file executable" })
 
--- tab stuff
-vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>") --open new tab
-vim.keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>") --close current tab
-vim.keymap.set("n", "<leader>tn", "<cmd>tabn<CR>") --go to next
-vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>") --go to pre
-vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>") --open current tab in new tab
+-- tab / buffer stuff
+vim.keymap.set("n", "<leader>to", "<cmd>enew<CR>", { desc = "Open new buffer" })
+vim.keymap.set("n", "<leader>tx", "<cmd>bdelete<CR>", { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>tn", "<cmd>BufferLineCycleNext<CR>", { desc = "Go to next buffer" })
+vim.keymap.set("n", "<leader>tp", "<cmd>BufferLineCyclePrev<CR>", { desc = "Go to prev buffer" })
+vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
 
 --split management
 vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
