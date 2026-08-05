@@ -11,20 +11,24 @@ return {
             local jdtls_path = home .. "/.local/share/nvim/mason/packages/jdtls"
             local mason_path = vim.fn.stdpath("data") .. "/mason/packages"
 
-            -- ===== Bundles cho Debug =====
-            local bundles = {
-                vim.fn.glob(mason_path .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", true),
-            }
+            -- ===== Debug Bundles =====
+            local bundles = {}
 
-            -- Thêm java-test (nếu đã cài)
-            local java_test_bundles = vim.split(
-                vim.fn.glob(mason_path .. "/java-test/extension/server/*.jar", true),
-                "\n"
+            -- java-debug-adapter
+            local debug_jar = vim.fn.glob(
+                mason_path .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", 1
             )
-            if #java_test_bundles > 0 then
-                vim.list_extend(bundles, java_test_bundles)
+            if debug_jar ~= "" then
+                table.insert(bundles, debug_jar)
             end
 
+            -- java-test (optional)
+            local java_test_jars = vim.split(
+                vim.fn.glob(mason_path .. "/java-test/extension/server/*.jar", 1), "\n", { trimempty = true }
+            )
+            vim.list_extend(bundles, java_test_jars)
+
+            -- ===== JDTLS Config =====
             local config = {
                 cmd = {
                     "java",
@@ -34,22 +38,31 @@ return {
                     "-Dlog.protocol=true",
                     "-Dlog.level=ALL",
                     "-Xms1g",
+                    "-Xmx4g",
                     "--add-modules=ALL-SYSTEM",
                     "--add-opens", "java.base/java.util=ALL-UNNAMED",
                     "--add-opens", "java.base/java.lang=ALL-UNNAMED",
                     "-jar", vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar"),
                     "-configuration", jdtls_path .. "/config_linux",
-                    "-data", vim.fn.stdpath("cache") .. "/jdtls/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+                    "-data", vim.fn.stdpath("cache") .. "/jdtls/" ..
+                             vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t"),
                 },
 
                 root_dir = require("jdtls.setup").find_root({
-                    ".git", "mvnw", "gradlew", "pom.xml", "build.gradle"
+                    ".git", "mvnw", "gradlew", "pom.xml", "build.gradle",
                 }),
 
                 settings = {
                     java = {
                         signatureHelp = { enabled = true },
                         contentProvider = { preferred = "fernflower" },
+                        eclipse = { downloadSources = true },
+                        maven   = { downloadSources = true },
+                        referencesCodeLens = { enabled = true },
+                        references         = { includeDecompiledSources = true },
+                        inlayHints = {
+                            parameterNames = { enabled = "all" },
+                        },
                         completion = {
                             favoriteStaticMembers = {
                                 "org.hamcrest.MatcherAssert.assertThat",
@@ -62,30 +75,36 @@ return {
                         },
                         sources = {
                             organizeImports = {
-                                starThreshold = 9999,
+                                starThreshold       = 9999,
                                 staticStarThreshold = 9999,
                             },
                         },
                     },
                 },
 
-                -- Quan trọng: load debug adapter
                 init_options = {
                     bundles = bundles,
                 },
 
-                on_attach = function(client, bufnr)
-                    -- Auto import
-                    vim.keymap.set("n", "<leader>oi", function()
-                        jdtls.organize_imports()
-                    end, { buffer = bufnr, desc = "Organize Imports" })
+                on_attach = function(_, bufnr)
+                    local opts = { buffer = bufnr, silent = true }
 
-                    -- Bật DAP
-                    require("jdtls").setup_dap({ hotcodereplace = "auto" })
+                    -- Organize Imports
+                    vim.keymap.set("n", "<leader>oi", jdtls.organize_imports,
+                        vim.tbl_extend("force", opts, { desc = "Organize Imports" }))
 
-                    -- Đợi JDTLS load xong rồi mới setup main class configs
+                    -- Extract variable / method
+                    vim.keymap.set({ "n", "v" }, "<leader>ev", jdtls.extract_variable,
+                        vim.tbl_extend("force", opts, { desc = "Extract Variable" }))
+                    vim.keymap.set({ "n", "v" }, "<leader>em", jdtls.extract_method,
+                        vim.tbl_extend("force", opts, { desc = "Extract Method" }))
+
+                    -- Enable DAP for Java
+                    jdtls.setup_dap({ hotcodereplace = "auto" })
+
+                    -- Setup main class configs after JDTLS is fully initialised
                     vim.defer_fn(function()
-                        require("jdtls.dap").setup_dap_main_class_configs()
+                        pcall(require("jdtls.dap").setup_dap_main_class_configs)
                     end, 1500)
                 end,
             }
