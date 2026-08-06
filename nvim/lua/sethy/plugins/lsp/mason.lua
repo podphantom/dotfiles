@@ -38,6 +38,7 @@ return {
                 "emmet_ls",
                 "emmet_language_server",
                 "marksman",
+                "clangd",
             },
         })
 
@@ -49,6 +50,7 @@ return {
                 "isort",
                 "pylint",
                 "clangd",
+                "codelldb",
                 "denols",
             },
         })

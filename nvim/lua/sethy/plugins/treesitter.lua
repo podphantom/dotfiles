@@ -11,7 +11,7 @@ return {
             local ensure_installed = {
                 "json", "javascript", "typescript", "tsx", "go", "yaml", "html", "css", "python",
                 "http", "prisma", "svelte", "graphql", "bash", "vim", "dockerfile",
-                "gitignore", "query", "vimdoc", "c", "java", "rust", "ron",
+                "gitignore", "query", "vimdoc", "c", "cpp", "java", "rust", "ron",
             }
 
             treesitter.install(ensure_installed)
@@ -34,8 +34,12 @@ return {
                     -- enable indentation (skip yaml/markdown)
                     if ft ~= "yaml" and ft ~= "markdown" then
                         vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                        vim.bo[buf].smartindent = false
-                        vim.bo[buf].cindent = false
+                        vim.bo[buf].autoindent = true
+                        if ft == "c" or ft == "cpp" or ft == "java" then
+                            vim.bo[buf].cindent = true
+                        else
+                            vim.bo[buf].smartindent = true
+                        end
                     end
                 end,
             })

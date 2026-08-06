@@ -264,6 +264,31 @@ return {
                 dapui.close()
             end
 
+            -- ===== C / C++ Adapter (codelldb) =====
+            local codelldb_path = vim.fn.stdpath("data") .. "/mason/bin/codelldb"
+            dap.adapters.codelldb = {
+                type = "server",
+                port = "${port}",
+                executable = {
+                    command = codelldb_path,
+                    args = { "--port", "${port}" },
+                },
+            }
+
+            dap.configurations.cpp = {
+                {
+                    name = "Launch binary (codelldb)",
+                    type = "codelldb",
+                    request = "launch",
+                    program = function()
+                        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopOnEntry = false,
+                },
+            }
+            dap.configurations.c = dap.configurations.cpp
+
             -- ===== Keymaps =====
             vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint,  { desc = "Toggle Breakpoint" })
             vim.keymap.set("n", "<leader>dB", function()
@@ -274,7 +299,9 @@ return {
             end, { desc = "Log Point" })
 
             vim.keymap.set("n", "<leader>dc", function()
-                require("jdtls.dap").setup_dap_main_class_configs()
+                if vim.bo.filetype == "java" then
+                    pcall(require("jdtls.dap").setup_dap_main_class_configs)
+                end
                 dap.continue()
             end, { desc = "Start / Continue Debug" })
 

@@ -85,6 +85,30 @@ vim.keymap.set("n", "<leader>jr", function()
 	vim.cmd("terminal javac % && java %:t:r")
 end, { desc = "Compile & Run Java" })
 
+-- Compile & Run C / C++
+vim.keymap.set("n", "<leader>cr", function()
+	local ft = vim.bo.filetype
+	if ft == "cpp" then
+		vim.cmd("split | terminal g++ -std=c++17 -Wall -Wextra % -o %:r && ./%:r")
+	elseif ft == "c" then
+		vim.cmd("split | terminal gcc -Wall -Wextra % -o %:r && ./%:r")
+	else
+		vim.notify("Not a C or C++ file", vim.log.levels.WARN)
+	end
+end, { desc = "Compile & Run C/C++" })
+
+-- Compile C / C++ with debug symbols (-g) for DAP
+vim.keymap.set("n", "<leader>cb", function()
+	local ft = vim.bo.filetype
+	if ft == "cpp" then
+		vim.cmd("split | terminal g++ -std=c++17 -g -Wall -Wextra % -o %:r")
+	elseif ft == "c" then
+		vim.cmd("split | terminal gcc -g -Wall -Wextra % -o %:r")
+	else
+		vim.notify("Not a C or C++ file", vim.log.levels.WARN)
+	end
+end, { desc = "Compile C/C++ with Debug symbols" })
+
 --Breakpoint 
 -- vim.keymap.set("n", "<leader>bb", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
 -- vim.keymap.set("n", "<leader>bc", dap.continue, { desc = "Continue / Start Debug" })
