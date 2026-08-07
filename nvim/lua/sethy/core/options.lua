@@ -24,7 +24,8 @@ vim.opt.inccommand = "split"
 
 -- UI
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
+vim.opt.numberwidth = 2
+vim.opt.signcolumn = "yes:1"
 
 -- folding
 vim.o.foldenable = true
