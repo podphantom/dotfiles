@@ -35,9 +35,8 @@ return {
 			callback = set_dropbar_hl,
 		})
 
-		-- Keymaps
+		-- Keymaps for Dropbar
 		vim.keymap.set("n", "<leader>dp", dropbar_api.pick, { desc = "Dropbar: Pick breadcrumb" })
-	--	vim.keymap.set("n", "<leader>ds", dropbar_api.goto_context_start, { desc = "Dropbar: Go to context start" })
 		vim.keymap.set("n", "<leader>dn", dropbar_api.select_next_context, { desc = "Dropbar: Select next context" })
 	end,
 }

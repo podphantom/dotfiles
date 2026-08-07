@@ -9,21 +9,33 @@ return {
                 fast_wrap = {},
             })
 
-            -- Tab nhảy ra ngoài ngoặc (cách đơn giản)
+            -- Smart Tab: Step over closing quotes/brackets, or completion / snippet
             vim.keymap.set("i", "<Tab>", function()
                 local line = vim.fn.getline(".")
-                local col = vim.fn.col(".") 
-
+                local col = vim.fn.col(".")
                 local next_char = line:sub(col, col)
 
-                -- Nếu ký tự tiếp theo là dấu đóng thì nhảy qua
-                if next_char:match("[%\"'%)%]}>]") then
+                -- 1. If next character is a closing quote, bracket, or punctuation, step right
+                if next_char:match("[%\"'%)%]}>;,]") then
                     return "<Right>"
                 end
 
-                -- Nếu không thì dùng Tab bình thường (accept completion)
-                return require("blink.cmp").accept()
-            end, { expr = true, silent = true })
+                -- 2. If completion menu is open, select next item
+                local ok, cmp = pcall(require, "blink.cmp")
+                if ok and cmp.is_visible() then
+                    cmp.select_next()
+                    return ""
+                end
+
+                -- 3. If inside a snippet, jump to next snippet placeholder
+                if ok and cmp.snippet_active() then
+                    cmp.snippet_forward()
+                    return ""
+                end
+
+                -- 4. Otherwise insert literal Tab
+                return "<Tab>"
+            end, { expr = true, silent = true, desc = "Smart Tab step out / completion / snippet" })
         end,
     },
 }

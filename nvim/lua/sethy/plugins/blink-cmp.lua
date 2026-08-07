@@ -23,8 +23,8 @@ return {
                     ["<C-j>"] = { "select_next", "fallback" },
                     ["<C-k>"] = { "select_prev", "fallback" },
 
-                    --Move between selections  
-                    ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+                    -- Move between selections  
+                    ["<Tab>"] = {},
                     ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
                 },
 
