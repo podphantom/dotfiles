@@ -54,8 +54,8 @@ local local_config = load_local_config("local")
 --- Config
 ---------------------------------------------------------------
 local config = {
-	font = wezterm.font("JetBrainsMono Nerd Font"),
-	font_size = 9.0,
+	font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
+	font_size = 11.0,
 	check_for_updates = false,
 	use_ime = true,
 	send_composed_key_when_left_alt_is_pressed = false,
@@ -64,44 +64,51 @@ local config = {
 	use_dead_keys = false,
 	warn_about_missing_glyphs = false,
 	-- enable_kitty_graphics = false,
-	max_fps = 30,
+	max_fps = 60,
 	animation_fps = 1,
 	cursor_blink_ease_in = "Constant",
 	cursor_blink_ease_out = "Constant",
 	cursor_blink_rate = 0,
 	enable_wayland = true,
-	-- color_scheme = "nordfox",
-    -- color_scheme = "Catppuccin Mocha",     -- Rất đẹp, ấm, phổ biến
--- color_scheme = "Tokyo Night",        -- Hiện đại, mạnh
--- color_scheme = "Dracula",            -- Cổ điển nhưng đẹp
--- color_scheme = "OneHalfDark",        -- Sạch sẽ, dễ nhìn
--- color_scheme = "GruvboxDark",        -- Ấm, retro
-color_scheme = "Kanagawa Wave",      -- Đẹp, nghệ thuật
-	-- color_scheme_dirs = { os.getenv("HOME") .. "/.config/wezterm/colors/" },
-	hide_tab_bar_if_only_one_tab = false,
+	color_scheme = "Catppuccin Mocha", -- World #1 developer theme for low eye strain & calm pastel contrast
+	window_background_opacity = 0.95, -- Ideal 95% opacity: eliminates wallpaper distraction while keeping modern glass feel
+	text_background_opacity = 1.0,
+	window_decorations = "RESIZE",
+	hide_tab_bar_if_only_one_tab = true,
 	adjust_window_size_when_changing_font_size = false,
 	selection_word_boundary = " \t\n{}[]()\"'`,;:│=&!%",
 	window_padding = {
-		left = 0,
-		right = 0,
-		top = 0,
-		bottom = 0,
+		left = 12,
+		right = 12,
+		top = 10,
+		bottom = 10,
 	},
     initial_cols = 100,
     initial_rows = 24,
 	use_fancy_tab_bar = false,
 	tab_max_width = 32,
 	notification_handling = "SuppressFromFocusedTab",
+	window_frame = {
+		active_titlebar_bg = "#11111b",
+		inactive_titlebar_bg = "#11111b",
+	},
 	colors = {
+		foreground = "#cdd6f4", -- Soft pastel white (low glare, zero eye strain)
+		cursor_bg = "#f5c2e7", -- Soft pastel pink accent
+		cursor_border = "#f5c2e7",
+		cursor_fg = "#11111b",
+		selection_bg = "#45475a",
+		selection_fg = "#cdd6f4",
 		tab_bar = {
-			background = scheme.background,
-			new_tab = { bg_color = "#2e3440", fg_color = scheme.ansi[8], intensity = "Bold" },
-			new_tab_hover = { bg_color = scheme.ansi[1], fg_color = scheme.brights[8], intensity = "Bold" },
+			background = "#11111b",
+			active_tab = { bg_color = "#313244", fg_color = "#cdd6f4", intensity = "Bold" },
+			new_tab = { bg_color = "#181825", fg_color = "#a6adc8", intensity = "Normal" },
+			new_tab_hover = { bg_color = "#313244", fg_color = "#f5c2e7", intensity = "Bold" },
 		},
 	},
 	inactive_pane_hsb = {
-		saturation = 0.7,
-		brightness = 0.7,
+		saturation = 0.8,
+		brightness = 0.8,
 	},
 	exit_behavior = "CloseOnCleanExit",
 	tab_bar_at_bottom = false,
