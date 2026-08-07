@@ -5,7 +5,14 @@ return {
 	config = function()
 		require("oil").setup({
             default_file_explorer = true, -- start up nvim with oil
-			columns = { },
+			columns = { "icon" },
+			win_options = {
+				number = true,
+				relativenumber = true,
+				signcolumn = "no",
+				foldcolumn = "0",
+				statuscolumn = "",
+			},
 			keymaps = {
 				["<C-h>"] = false,
                 ["<C-l>"] = false,
