@@ -94,16 +94,36 @@ local config = {
 	},
 	colors = {
 		foreground = "#cdd6f4", -- Soft pastel white (low glare, zero eye strain)
-		cursor_bg = "#f5c2e7", -- Soft pastel pink accent
-		cursor_border = "#f5c2e7",
+		cursor_bg = "#a6e3a1", -- Soothing Sage Green (relaxed, low eye strain, zero glare)
+		cursor_border = "#a6e3a1",
 		cursor_fg = "#11111b",
 		selection_bg = "#45475a",
 		selection_fg = "#cdd6f4",
+		ansi = {
+			"#1e1e2e", -- Black
+			"#f38ba8", -- Red
+			"#a6e3a1", -- Green
+			"#f9e2af", -- Yellow
+			"#89b4fa", -- Blue (Light pastel blue background)
+			"#cba6f7", -- Magenta
+			"#94e2d5", -- Cyan
+			"#cdd6f4", -- White
+		},
+		brights = {
+			"#45475a", -- Bright Black
+			"#f38ba8", -- Bright Red
+			"#a6e3a1", -- Bright Green
+			"#f9e2af", -- Bright Yellow
+			"#b4befe", -- Bright Blue (Light pastel blue)
+			"#cba6f7", -- Bright Magenta
+			"#94e2d5", -- Bright Cyan
+			"#bac2de", -- Bright White
+		},
 		tab_bar = {
 			background = "#11111b",
 			active_tab = { bg_color = "#313244", fg_color = "#cdd6f4", intensity = "Bold" },
 			new_tab = { bg_color = "#181825", fg_color = "#a6adc8", intensity = "Normal" },
-			new_tab_hover = { bg_color = "#313244", fg_color = "#f5c2e7", intensity = "Bold" },
+			new_tab_hover = { bg_color = "#313244", fg_color = "#a6e3a1", intensity = "Bold" },
 		},
 	},
 	inactive_pane_hsb = {
