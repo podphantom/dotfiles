@@ -40,6 +40,7 @@ local cheatsheet_data = {
             { lhs = "<C-j>", desc = "Navigate to lower window split / tmux pane" },
             { lhs = "<C-k>", desc = "Navigate to upper window split / tmux pane" },
             { lhs = "<C-l>", desc = "Navigate to right window split / tmux pane" },
+            { lhs = "<prefix> ?", desc = "Open interactive Tmux Cheatsheet popup" },
         },
     },
     {
@@ -138,6 +139,8 @@ local cheatsheet_data = {
         items = {
             { lhs = "<leader>?", desc = "Open this Categorized Cheatsheet" },
             { lhs = "<leader>cs", desc = "Open Categorized Cheatsheet Picker" },
+            { lhs = "<leader>wr", desc = "Wrapped Neovim Heatmap & Stats", action = function() require("wrapped").run() end },
+            { lhs = "<leader>tg", desc = "Triforce RPG Profile UI", action = function() require("triforce").show_profile() end },
             { lhs = "<leader>ht", desc = "Toggle Hardtime ON/OFF", action = "<cmd>Hardtime toggle<CR>" },
             { lhs = "<leader>hr", desc = "Report Hardtime habit stats", action = "<cmd>Hardtime report<CR>" },
             { lhs = "<leader>ks", desc = "Toggle Showkeys", action = "<cmd>ShowkeysToggle<CR>" },

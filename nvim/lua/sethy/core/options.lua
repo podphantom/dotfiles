@@ -43,6 +43,7 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.colorcolumn = "0"
 vim.opt.mouse = "a"
+vim.opt.shortmess:append("I") -- Disable default Neovim intro splash message
 -- Clipboard
 vim.opt.clipboard = "unnamedplus"   -- Đồng bộ với clipboard hệ thống
 vim.opt.clipboard:append("unnamed") -- Hỗ trợ thêm
