@@ -155,7 +155,28 @@ return {
 
             -- Snacks Picker
             { "<leader>pws", function() require("snacks").picker.grep_word() end, desc = "Search Visual selection or Word", mode = { "n", "x" } },
-            { "<leader>pk", function() require("snacks").picker.keymaps({ layout = "ivy" }) end, desc = "Search Keymaps (Snacks Picker)" },
+            {
+                "<leader>pk",
+                function()
+                    require("snacks").picker.keymaps({
+                        preview = false,
+                        layout = { preset = "select", width = 0.5, height = 0.6 },
+                        format = function(item)
+                            local k = item.item or item
+                            local mode = k.mode or "n"
+                            local lhs = (k.lhs or ""):gsub("^ ", "<Space>")
+                            local desc = k.desc or (type(k.rhs) == "string" and k.rhs) or ""
+                            return {
+                                { mode, "SnacksPickerKeymapMode" },
+                                { "  ", "Normal" },
+                                { string.format("%-18s", lhs), "SnacksPickerKeymapLhs" },
+                                { desc, "SnacksPickerComment" },
+                            }
+                        end,
+                    })
+                end,
+                desc = "Search Keymaps (Snacks Picker)",
+            },
 
             -- Git Stuff
             { "<leader>gbr", function() require("snacks").picker.git_branches({ layout = "select" }) end, desc = "Pick and Switch Git Branches" },

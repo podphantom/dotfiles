@@ -196,12 +196,12 @@ return {
 
                     -- Enable stepping keymaps directly inside DAP UI & Floating windows
                     local bopts = { buffer = ev.buf, silent = true }
-                    vim.keymap.set("n", "<leader>ds", function() dap.step_over(); safe_update_render() end, bopts)
-                    vim.keymap.set("n", "<leader>di", function() dap.step_into(); safe_update_render() end, bopts)
-                    vim.keymap.set("n", "<leader>do", function() dap.step_out(); safe_update_render() end, bopts)
-                    vim.keymap.set("n", "<leader>dc", function() dap.continue(); safe_update_render() end, bopts)
-                    vim.keymap.set("n", "<leader>dr", function() dap.restart(); safe_update_render() end, bopts)
-                    vim.keymap.set("n", "<leader>dq", function() dap.terminate(); safe_update_render() end, bopts)
+                    vim.keymap.set("n", "<leader>ds", function() dap.step_over(); safe_update_render() end, vim.tbl_extend("force", { desc = "Step Over" }, bopts))
+                    vim.keymap.set("n", "<leader>di", function() dap.step_into(); safe_update_render() end, vim.tbl_extend("force", { desc = "Step Into" }, bopts))
+                    vim.keymap.set("n", "<leader>do", function() dap.step_out(); safe_update_render() end, vim.tbl_extend("force", { desc = "Step Out" }, bopts))
+                    vim.keymap.set("n", "<leader>dc", function() dap.continue(); safe_update_render() end, vim.tbl_extend("force", { desc = "Start / Continue Debug" }, bopts))
+                    vim.keymap.set("n", "<leader>dr", function() dap.restart(); safe_update_render() end, vim.tbl_extend("force", { desc = "Restart Debug" }, bopts))
+                    vim.keymap.set("n", "<leader>dq", function() dap.terminate(); safe_update_render() end, vim.tbl_extend("force", { desc = "Quit Debug" }, bopts))
 
                     -- Auto-update Scopes & DAP UI immediately when submitting input in REPL
                     if ft == "dap-repl" then
