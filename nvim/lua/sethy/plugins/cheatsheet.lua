@@ -36,6 +36,7 @@ local cheatsheet_data = {
             { lhs = "<leader>sh", desc = "Split window Horizontally", action = "<C-w>s" },
             { lhs = "<leader>se", desc = "Equalize split window sizes", action = "<C-w>=" },
             { lhs = "<leader>sx", desc = "Close current split window", action = "<cmd>close<CR>" },
+            { lhs = "<leader>mx", desc = "Maximize / minimize split window", action = "<cmd>MaximizerToggle<CR>" },
             { lhs = "<C-h>", desc = "Navigate to left window split / tmux pane" },
             { lhs = "<C-j>", desc = "Navigate to lower window split / tmux pane" },
             { lhs = "<C-k>", desc = "Navigate to upper window split / tmux pane" },
@@ -57,9 +58,13 @@ local cheatsheet_data = {
         },
     },
     {
-        category = "🔍 Search & Pickers (Snacks / Telescope)",
+        category = "🔍 Search & Pickers (FFF / Snacks / Telescope)",
         items = {
-            { lhs = "<leader>pws", desc = "Search word / visual selection", action = function() require("snacks").picker.grep_word() end },
+            { lhs = "<leader>pf", desc = "Open fast FFF file picker", action = function() require("fff").find_files() end },
+            { lhs = "<leader>ps", desc = "Live fuzzy grep word in workspace (FFF)", action = function() require("fff").live_grep() end },
+            { lhs = "<leader>pgf", desc = "Find files in git root (FFF)", action = function() require("fff").find_in_git_root() end },
+            { lhs = "<leader>pcf", desc = "Find files in Neovim config directory", action = function() require("fff").find_files_in_dir("~/.config/nvim") end },
+            { lhs = "<leader>pws", desc = "Search word under cursor / visual selection", action = function() require("snacks").picker.grep_word() end },
             { lhs = "<leader>pk", desc = "Search all keymaps picker", action = function() require("snacks").picker.keymaps() end },
             { lhs = "<leader>pr", desc = "Recent files picker (Telescope)", action = "<cmd>Telescope oldfiles<CR>" },
             { lhs = "<leader>th", desc = "Pick colorschemes", action = function() require("snacks").picker.colorschemes() end },
@@ -86,6 +91,16 @@ local cheatsheet_data = {
         },
     },
     {
+        category = "⚠️ Diagnostics & Quickfix (Trouble)",
+        items = {
+            { lhs = "<leader>xw", desc = "Open workspace diagnostics list", action = "<cmd>Trouble diagnostics toggle<CR>" },
+            { lhs = "<leader>xd", desc = "Open document diagnostics list", action = "<cmd>Trouble diagnostics toggle filter.buf=0<CR>" },
+            { lhs = "<leader>xq", desc = "Open quickfix list in Trouble", action = "<cmd>Trouble quickfix toggle<CR>" },
+            { lhs = "<leader>xl", desc = "Open location list in Trouble", action = "<cmd>Trouble loclist toggle<CR>" },
+            { lhs = "<leader>xt", desc = "Open TODO items in Trouble", action = "<cmd>Trouble todo toggle<CR>" },
+        },
+    },
+    {
         category = "🐞 Debugging (DAP & DAP UI)",
         items = {
             { lhs = "<leader>db", desc = "Toggle Breakpoint", action = function() require("dap").toggle_breakpoint() end },
@@ -108,14 +123,37 @@ local cheatsheet_data = {
         },
     },
     {
-        category = "🌿 Git Integration",
+        category = "🌿 Git Integration & Diffview",
         items = {
             { lhs = "<leader>lg", desc = "Open LazyGit terminal popup", action = function() require("snacks").lazygit() end },
             { lhs = "<leader>gl", desc = "View LazyGit logs", action = function() require("snacks").lazygit.log() end },
             { lhs = "<leader>gg", desc = "Fugitive fullscreen tab", action = "<cmd>tabnew | Git | only<CR>" },
             { lhs = "<leader>gbr", desc = "Pick and switch Git branches", action = function() require("snacks").picker.git_branches() end },
+            { lhs = "<leader>gd", desc = "Open side-by-side Diffview (vs HEAD)", action = "<cmd>DiffviewOpen<CR>" },
+            { lhs = "<leader>gD", desc = "Open Diffview vs HEAD~1", action = "<cmd>DiffviewOpen HEAD~1<CR>" },
+            { lhs = "<leader>ghf", desc = "View file Git history diffs", action = "<cmd>DiffviewFileHistory %<CR>" },
+            { lhs = "<leader>ghr", desc = "View repo Git history diffs", action = "<cmd>DiffviewFileHistory<CR>" },
+            { lhs = "<leader>gdc", desc = "Close Diffview window", action = "<cmd>DiffviewClose<CR>" },
+            { lhs = "]h / [h", desc = "Jump to Next / Previous Git Hunk" },
+            { lhs = "<leader>gs", desc = "Stage current Git hunk" },
+            { lhs = "<leader>gr", desc = "Reset current Git hunk" },
+            { lhs = "<leader>gS", desc = "Stage whole buffer" },
+            { lhs = "<leader>gR", desc = "Reset whole buffer" },
+            { lhs = "<leader>gp", desc = "Preview Git hunk float" },
+            { lhs = "<leader>gB", desc = "Toggle current line Git blame" },
+            { lhs = "<leader>wl", desc = "List & switch Git Worktrees", action = function() require("telescope").extensions.git_worktree.git_worktrees() end },
+            { lhs = "<leader>wc", desc = "Create Git Worktree branch", action = function() require("telescope").extensions.git_worktree.create_git_worktree() end },
             { lhs = "<leader>p", desc = "Git push" },
-            { lhs = "<leader>P", desc = "Git pull" },
+            { lhs = "<leader>P", desc = "Git pull (--rebase)" },
+        },
+    },
+    {
+        category = "💾 Session Management (Persistence)",
+        items = {
+            { lhs = "<leader>qs", desc = "Restore Session for current directory", action = function() require("persistence").load() end },
+            { lhs = "<leader>qS", desc = "Select Session picker", action = function() require("persistence").select() end },
+            { lhs = "<leader>ql", desc = "Restore Last active Session", action = function() require("persistence").load({ last = true }) end },
+            { lhs = "<leader>qd", desc = "Stop saving current session", action = function() require("persistence").stop() end },
         },
     },
     {
@@ -139,6 +177,7 @@ local cheatsheet_data = {
         items = {
             { lhs = "<leader>?", desc = "Open this Categorized Cheatsheet" },
             { lhs = "<leader>cs", desc = "Open Categorized Cheatsheet Picker" },
+            { lhs = "<leader><leader>", desc = "Source current config/file (:so)", action = "<cmd>so<CR>" },
             { lhs = "<leader>wr", desc = "Wrapped Neovim Heatmap & Stats", action = function() require("wrapped").run() end },
             { lhs = "<leader>tg", desc = "Triforce RPG Profile UI", action = function() require("triforce").show_profile() end },
             { lhs = "<leader>ht", desc = "Toggle Hardtime ON/OFF", action = "<cmd>Hardtime toggle<CR>" },
@@ -149,6 +188,30 @@ local cheatsheet_data = {
             { lhs = "<leader>cr", desc = "Compile & Run C/C++" },
             { lhs = "<leader>cb", desc = "Compile C/C++ with Debug symbols (-g)" },
             { lhs = "<leader>jr", desc = "Compile & Run Java file" },
+        },
+    },
+    {
+        category = "🤖 AI Assistant & CodeCompanion",
+        items = {
+            { lhs = "<leader>ac", desc = "Toggle CodeCompanion AI Chat window", action = "<cmd>CodeCompanionChat Toggle<CR>" },
+            { lhs = "<leader>as", desc = "Send Chat prompt to AI", action = "<cmd>CodeCompanionChat Send<CR>" },
+            { lhs = "<leader>ai", desc = "Open CodeCompanion Inline Prompt", action = "<cmd>CodeCompanion<CR>" },
+            { lhs = "<leader>ap", desc = "Open CodeCompanion Action Palette", action = "<cmd>CodeCompanionActions<CR>" },
+            { lhs = "<leader>aq", desc = "Execute CodeCompanion CLI Command", action = "<cmd>CodeCompanionCmd<CR>" },
+            { lhs = "<leader>aC", desc = "Add visual selection to AI Chat", action = "<cmd>CodeCompanionChat Add<CR>" },
+        },
+    },
+    {
+        category = "🌐 HTTP REST Client (Kulala)",
+        items = {
+            { lhs = "<leader>Rr", desc = "Execute HTTP request under cursor", action = function() require("kulala").run() end },
+            { lhs = "<leader>Ra", desc = "Execute all HTTP requests in file", action = function() require("kulala").run_all() end },
+            { lhs = "<leader>Ri", desc = "Inspect HTTP request headers/body", action = function() require("kulala").inspect() end },
+            { lhs = "<leader>Rt", desc = "Toggle Headers/Body view", action = function() require("kulala").toggle_view() end },
+            { lhs = "<leader>Rp", desc = "Jump to previous HTTP request", action = function() require("kulala").jump_prev() end },
+            { lhs = "<leader>Rn", desc = "Jump to next HTTP request", action = function() require("kulala").jump_next() end },
+            { lhs = "<leader>Ry", desc = "Copy request as cURL command", action = function() require("kulala").copy() end },
+            { lhs = "<leader>Re", desc = "Select HTTP environment", action = function() require("kulala").set_selected_env() end },
         },
     },
 }
@@ -173,16 +236,16 @@ local function open_cheatsheet_picker()
         preview = false,
         layout = {
             preset = "select",
-            width = 0.65,
-            height = 0.75,
+            width = 0.88,
+            height = 0.82,
         },
         format = function(item)
             local cat = item.category or ""
             local lhs = item.lhs or ""
             local desc = item.desc or ""
             return {
-                { string.format("%-34s", cat), "SnacksPickerTitle" },
-                { string.format("%-18s", lhs), "SnacksPickerKeymapLhs" },
+                { string.format("%-32s", cat), "SnacksPickerTitle" },
+                { string.format("%-15s", lhs), "SnacksPickerKeymapLhs" },
                 { desc, "SnacksPickerComment" },
             }
         end,

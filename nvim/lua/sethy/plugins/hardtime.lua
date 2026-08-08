@@ -32,6 +32,8 @@ return {
             "minifiles",
             "minifiles-help",
             "hardtime",
+            "codecompanion",
+            "codecompanion_chat",
         },
         disabled_keys = {
             ["<Up>"] = { "n", "i", "v" },

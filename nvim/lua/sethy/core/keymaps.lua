@@ -77,8 +77,19 @@ vim.keymap.set("n", "<leader>re", "<cmd>restart<cr>", {
 })
 
 vim.keymap.set("n", "<leader>lr", function()
-	vim.cmd("lsp restart")
-	vim.notify("LSP restarted", vim.log.levels.INFO)
+	local clients = vim.lsp.get_clients()
+	if #clients == 0 then
+		vim.notify("No active LSP clients to restart", vim.log.levels.WARN)
+		return
+	end
+	local ok, err = pcall(function()
+		vim.cmd("LspRestart")
+	end)
+	if ok then
+		vim.notify("LSP restarted", vim.log.levels.INFO)
+	else
+		vim.notify("LSP restart failed: " .. tostring(err), vim.log.levels.ERROR)
+	end
 end, { desc = "Restart LSP" })
 
 vim.keymap.set("n", "<leader>jr", function()

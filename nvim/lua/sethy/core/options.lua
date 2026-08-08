@@ -55,3 +55,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.hl.on_yank()
     end,
 })
+
+-- Highlight active window cursorline only
+local cursorline_group = vim.api.nvim_create_augroup("ActiveCursorLine", { clear = true })
+vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufEnter" }, {
+    group = cursorline_group,
+    callback = function()
+        vim.opt_local.cursorline = true
+    end,
+})
+vim.api.nvim_create_autocmd({ "WinLeave" }, {
+    group = cursorline_group,
+    callback = function()
+        vim.opt_local.cursorline = false
+    end,
+})
+

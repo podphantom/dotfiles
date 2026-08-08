@@ -23,18 +23,6 @@ return {
 
 		dropbar.setup(opts)
 
-		-- Background highlight for winbar / dropbar
-		local function set_dropbar_hl()
-			vim.api.nvim_set_hl(0, "WinBar", { bg = "#1e2030" })
-			vim.api.nvim_set_hl(0, "WinBarNC", { bg = "#161622" })
-		end
-		set_dropbar_hl()
-
-		vim.api.nvim_create_autocmd("ColorScheme", {
-			pattern = "*",
-			callback = set_dropbar_hl,
-		})
-
 		-- Keymaps for Dropbar
 		vim.keymap.set("n", "<leader>dp", dropbar_api.pick, { desc = "Dropbar: Pick breadcrumb" })
 		vim.keymap.set("n", "<leader>dn", dropbar_api.select_next_context, { desc = "Dropbar: Select next context" })

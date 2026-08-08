@@ -6,7 +6,7 @@ return {
         "nvim-tree/nvim-web-devicons"
     },
     ---@module 'render-markdown'
-    ft = { "markdown", "norg", "rmd", "org" },
+    ft = { "markdown", "norg", "rmd", "org", "codecompanion" },
     init = function()
         -- Define colors
         local color1_bg = "#ff757f"

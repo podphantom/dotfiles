@@ -54,7 +54,13 @@ return {
 
                 cmdline = {
                     enabled = true,
-                    keymap = { preset = "cmdline" },
+                    keymap = {
+                        ["<C-j>"] = { "select_next", "fallback" },
+                        ["<C-k>"] = { "select_prev", "fallback" },
+                        ["<Tab>"] = { "select_next", "fallback" },
+                        ["<S-Tab>"] = { "select_prev", "fallback" },
+                        ["<CR>"] = { "accept", "fallback" },
+                    },
                     completion = {
                         menu = { auto_show = true },
                     },
