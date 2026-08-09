@@ -55,14 +55,17 @@ vim.keymap.set("n", "<leader>tn", "<cmd>BufferLineCycleNext<CR>", { desc = "Go t
 vim.keymap.set("n", "<leader>tp", "<cmd>BufferLineCyclePrev<CR>", { desc = "Go to prev buffer" })
 vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
 
---split management
+-- split management
 vim.keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
--- split window vertically
 vim.keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
--- split window horizontally
-vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
--- close current split window
+vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
 vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
+
+-- Resize split window panes with Space + H/J/K/L (<leader>h, <leader>j, <leader>k, <leader>l)
+vim.keymap.set("n", "<leader>H", "<cmd>vertical resize +5<CR>", { desc = "Resize window pane left" })
+vim.keymap.set("n", "<leader>J", "<cmd>resize -5<CR>", { desc = "Resize window pane down" })
+vim.keymap.set("n", "<leader>K", "<cmd>resize +5<CR>", { desc = "Resize window pane up" })
+vim.keymap.set("n", "<leader>L", "<cmd>vertical resize -5<CR>", { desc = "Resize window pane right" })
 
 -- Copy filepath to the clipboard
 vim.keymap.set("n", "<leader>fp", function()

@@ -15,11 +15,13 @@ return {
 			},
 			keymaps = {
 				["<C-h>"] = false,
-                ["<C-l>"] = false,
-                ["<C-c>"] = false, -- prevent from closing Oil as <C-c> is esc key
-                ["<C-r>"] = "actions.refresh",
-				["<M-h>"] = "actions.select_split",
-                ["q"] = "actions.close",
+				["<C-l>"] = false,
+				["<C-c>"] = false, -- prevent from closing Oil as <C-c> is esc key
+				["<C-r>"] = "actions.refresh",
+				["<C-v>"] = "actions.select_vsplit", -- Open in Vertical Split
+				["<C-s>"] = "actions.select_split", -- Open in Horizontal Split
+				["<M-h>"] = "actions.select_split", -- Open in Horizontal Split (Alt+h)
+				["q"] = "actions.close",
 			},
             delete_to_trash = true,
 			view_options = {

@@ -159,6 +159,8 @@ local cheatsheet_data = {
     {
         category = "⚡ Movement & Editing Habits",
         items = {
+            { lhs = "s", desc = "Flash Teleport Jump to any label on screen", action = function() require("flash").jump() end },
+            { lhs = "S", desc = "Flash Treesitter Scope Selection", action = function() require("flash").treesitter() end },
             { lhs = "<C-d>", desc = "Move down half-page (centered)" },
             { lhs = "<C-u>", desc = "Move up half-page (centered)" },
             { lhs = "n / N", desc = "Next / Previous search match (centered)" },
