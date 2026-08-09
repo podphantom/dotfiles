@@ -52,6 +52,8 @@ return {
                     ".git", "mvnw", "gradlew", "pom.xml", "build.gradle",
                 }),
 
+                capabilities = require("blink.cmp").get_lsp_capabilities(),
+
                 settings = {
                     java = {
                         signatureHelp = { enabled = true },
@@ -72,6 +74,18 @@ return {
                                 "java.util.Objects.requireNonNullElse",
                                 "org.mockito.Mockito.*",
                             },
+                            filteredTypes = {
+                                "com.sun.*",
+                                "sun.*",
+                            },
+                            importOrder = {
+                                "java",
+                                "javax",
+                                "org",
+                                "com",
+                            },
+                            matchCase = "firstLetter",
+                            guessMethodArguments = true,
                         },
                         sources = {
                             organizeImports = {

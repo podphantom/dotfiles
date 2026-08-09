@@ -14,7 +14,23 @@ return {
                 "gitignore", "query", "vimdoc", "c", "cpp", "java", "rust", "ron",
             }
 
-            treesitter.install(ensure_installed)
+            -- Only install missing parsers on demand to avoid unnecessary git fetch calls on startup
+            local installed = treesitter.get_installed()
+            local installed_set = {}
+            for _, lang in ipairs(installed) do
+                installed_set[lang] = true
+            end
+
+            local to_install = {}
+            for _, lang in ipairs(ensure_installed) do
+                if not installed_set[lang] then
+                    table.insert(to_install, lang)
+                end
+            end
+
+            if #to_install > 0 then
+                treesitter.install(to_install)
+            end
 
             -- Safe FileType autocmd for highlighting + indentation
             vim.api.nvim_create_autocmd("FileType", {
