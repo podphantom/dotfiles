@@ -257,11 +257,11 @@ return {
             cmd = {
                 "clangd",
                 "--background-index",
-                "--clang-tidy",
-                "--header-insertion=iwyu",
+                "-j=4",
+                "--header-insertion=never",
                 "--completion-style=detailed",
-                "--function-arg-placeholders",
-                "--fallback-style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never, AllowShortFunctionsOnASingleLine: None}",
+                "--function-arg-placeholders=false",
+                "--fallback-style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}",
                 "--query-driver=/usr/bin/g++,/usr/bin/c++,/usr/bin/clang++,/usr/bin/*",
             },
             init_options = {
