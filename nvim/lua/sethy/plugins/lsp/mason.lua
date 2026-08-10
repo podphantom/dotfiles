@@ -7,7 +7,7 @@ return {
         "neovim/nvim-lspconfig",
     },
     config = function()
-        -- import mason and mason_lspconfig
+        -- import mason, mason_lspconfig, mason_tool_installer
         local mason = require("mason")
         local mason_lspconfig = require("mason-lspconfig")
         local mason_tool_installer = require("mason-tool-installer")
@@ -25,7 +25,6 @@ return {
 
         mason_lspconfig.setup({
             automatic_enable = false,
-            -- servers for mason to install
             ensure_installed = {
                 "lua_ls",
                 "ts_ls",
@@ -39,11 +38,15 @@ return {
                 "emmet_language_server",
                 "marksman",
                 "clangd",
+                "jdtls",
             },
         })
 
         mason_tool_installer.setup({
             ensure_installed = {
+                "jdtls",
+                "java-debug-adapter",
+                "java-test",
                 "biome",
                 "prettier",
                 "stylua",

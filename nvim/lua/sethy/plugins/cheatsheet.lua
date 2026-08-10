@@ -193,6 +193,18 @@ local cheatsheet_data = {
         },
     },
     {
+        category = "☕ Java & JDTLS Development",
+        items = {
+            { lhs = "<leader>jo", desc = "Organize Java Imports (JDTLS)", action = function() require("jdtls").organize_imports() end },
+            { lhs = "<leader>ev", desc = "Extract Java Variable (JDTLS)", action = function() require("jdtls").extract_variable() end },
+            { lhs = "<leader>ec", desc = "Extract Java Constant (JDTLS)", action = function() require("jdtls").extract_constant() end },
+            { lhs = "<leader>em", desc = "Extract Java Method (JDTLS)", action = function() require("jdtls").extract_method(true) end },
+            { lhs = "<leader>jt", desc = "Run Java Test Class (JDTLS)", action = function() require("jdtls").test_class() end },
+            { lhs = "<leader>tm", desc = "Run Java Nearest Test Method (JDTLS)", action = function() require("jdtls").test_nearest_method() end },
+            { lhs = "<leader>jr", desc = "Compile & Run Java file" },
+        },
+    },
+    {
         category = "🤖 AI Assistant & CodeCompanion",
         items = {
             { lhs = "<leader>ac", desc = "Toggle CodeCompanion AI Chat window", action = "<cmd>CodeCompanionChat Toggle<CR>" },

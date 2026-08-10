@@ -55,7 +55,6 @@ vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true, desc =
 vim.keymap.set("n", "<leader>to", "<cmd>enew<CR>", { desc = "Open new buffer" })
 vim.keymap.set("n", "<leader>tx", "<cmd>bdelete<CR>", { desc = "Close current buffer" })
 vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Close current buffer" })
-vim.keymap.set("n", "<leader>dB", "<cmd>bdelete<CR>", { desc = "Close current buffer" })
 vim.keymap.set("n", "<leader>tn", "<cmd>BufferLineCycleNext<CR>", { desc = "Go to next buffer" })
 vim.keymap.set("n", "<leader>tp", "<cmd>BufferLineCyclePrev<CR>", { desc = "Go to prev buffer" })
 vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
@@ -68,8 +67,8 @@ vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current spli
 
 -- Resize split window panes with Space + H/J/K/L (<leader>h, <leader>j, <leader>k, <leader>l)
 vim.keymap.set("n", "<leader>H", "<cmd>vertical resize +5<CR>", { desc = "Resize window pane left" })
-vim.keymap.set("n", "<leader>J", "<cmd>resize -5<CR>", { desc = "Resize window pane down" })
-vim.keymap.set("n", "<leader>K", "<cmd>resize +5<CR>", { desc = "Resize window pane up" })
+vim.keymap.set("n", "<leader>J", "<cmd>resize +5<CR>", { desc = "Resize window pane down" })
+vim.keymap.set("n", "<leader>K", "<cmd>resize -5<CR>", { desc = "Resize window pane up" })
 vim.keymap.set("n", "<leader>L", "<cmd>vertical resize -5<CR>", { desc = "Resize window pane right" })
 
 -- Copy filepath to the clipboard
