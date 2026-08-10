@@ -21,6 +21,9 @@ vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true, desc = "Indent 
 -- paste over selection without loosing yanked
 vim.keymap.set("x", "p", [["_dP]], { desc = "Paste over selection without replacing register" })
 
+-- Jump to the start and end of a line 
+vim.keymap.set({ "n", "v", "o" }, "H", "^", { desc = "Jump to start of line text" })
+vim.keymap.set({ "n", "v", "o" }, "L", "$", { desc = "Jump to end of line text" })
 -- ===== DELETE & CUT CUSTOM =====
 
 -- d, dd, dw... →  Delete without yanking
@@ -51,6 +54,8 @@ vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true, desc =
 -- tab / buffer stuff
 vim.keymap.set("n", "<leader>to", "<cmd>enew<CR>", { desc = "Open new buffer" })
 vim.keymap.set("n", "<leader>tx", "<cmd>bdelete<CR>", { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>dB", "<cmd>bdelete<CR>", { desc = "Close current buffer" })
 vim.keymap.set("n", "<leader>tn", "<cmd>BufferLineCycleNext<CR>", { desc = "Go to next buffer" })
 vim.keymap.set("n", "<leader>tp", "<cmd>BufferLineCyclePrev<CR>", { desc = "Go to prev buffer" })
 vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })

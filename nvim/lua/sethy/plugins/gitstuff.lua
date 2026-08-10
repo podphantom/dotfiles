@@ -29,7 +29,7 @@ return {
                     end, opts)
 
                     -- NOTE: easy set up branch that wasn't setup properly
-                    vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts);
+                    vim.keymap.set("n", "<leader>gpu", ":Git push -u origin ", opts);
                 end,
             })
         end,

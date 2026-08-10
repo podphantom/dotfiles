@@ -40,7 +40,7 @@ vim.opt.splitbelow = true
 -- misc
 vim.opt.guicursor = ""
 vim.opt.isfname:append("@-@")
-vim.opt.updatetime = 50
+vim.opt.updatetime = 250
 vim.opt.colorcolumn = "0"
 vim.opt.mouse = "a"
 vim.opt.shortmess:append("I") -- Disable default Neovim intro splash message
