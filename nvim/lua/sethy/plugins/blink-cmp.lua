@@ -34,6 +34,7 @@ return {
                     },
                     documentation = {
                         auto_show = true,
+                        auto_show_delay_ms = 1000,
                     },
                     ghost_text = {
                         enabled = false,

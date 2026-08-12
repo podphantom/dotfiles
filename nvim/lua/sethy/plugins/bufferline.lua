@@ -61,7 +61,7 @@ return {
                     show_duplicate_prefix    = true,
                     persist_buffer_sort      = true,
                     move_wraps_at_ends       = false,
-                    separator_style          = "thin",               -- thin vertical line separators (|) as shown in image
+                    separator_style          = "slant",               -- charm / bashbuni slanted pill tabs
                     enforce_regular_tabs     = false,
                     always_show_bufferline   = true,
                     hover = {
@@ -80,7 +80,7 @@ return {
                     offsets = {
                         {
                             filetype   = "oil",
-                            text       = " File Explorer",
+                            text       = " ⚡ File Explorer",
                             highlight  = "BufferLineOffsetSeparator",
                             separator  = true,
                             text_align = "left",
@@ -90,46 +90,48 @@ return {
                 highlights = {
                     -- Active buffer tab (the buffer you are currently working on)
                     buffer_selected = {
-                        fg = "#FFFFFF",
-                        bg = "#2e3c64",
+                        fg = "#cba6f7",
+                        bg = "#313244",
                         bold = true,
                         italic = false,
                     },
                     indicator_selected = {
-                        fg = "#7dcfff",
-                        bg = "#2e3c64",
+                        fg = "#f5c2e7",
+                        bg = "#313244",
                     },
                     duplicate_selected = {
-                        fg = "#7dcfff",
-                        bg = "#2e3c64",
+                        fg = "#89b4fa",
+                        bg = "#313244",
                         bold = true,
                     },
                     close_button_selected = {
-                        fg = "#f7768e",
-                        bg = "#2e3c64",
+                        fg = "#f38ba8",
+                        bg = "#313244",
                     },
                     modified_selected = {
-                        fg = "#e0af68",
-                        bg = "#2e3c64",
+                        fg = "#fab387",
+                        bg = "#313244",
                     },
                     separator_selected = {
-                        fg = "#1a1b26",
-                        bg = "#2e3c64",
+                        fg = "#1e1e2e",
+                        bg = "#313244",
                     },
 
                     -- Inactive buffer tabs
                     background = {
-                        fg = "#565f89",
+                        fg = "#6c7086",
+                        bg = "#1e1e2e",
                     },
                     buffer_visible = {
-                        fg = "#787c99",
+                        fg = "#a6adc8",
+                        bg = "#181825",
                         italic = false,
                     },
                     close_button = {
-                        fg = "#565f89",
+                        fg = "#6c7086",
                     },
                     modified = {
-                        fg = "#e0af68",
+                        fg = "#fab387",
                     },
                 },
             })

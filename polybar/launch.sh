@@ -8,10 +8,10 @@ launch_bar() {
 	killall -q polybar
 
 	# Wait until the processes have been shut down
-	while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+	while pgrep -u $UID -x polybar >/dev/null; do sleep 0.1; done
 
 	# Launch the bar
-	if [[ "$style" == "hack" || "$style" == "cuts" ]]; then
+	if [[ "$style" == "hack" || "$style" == "cuts" || "$style" == "minhchien" ]]; then
 		polybar -q top -c "$dir/$style/config.ini" 2>/dev/null &
 		# polybar -q bottom -c "$dir/$style/config.ini" 2>/dev/null &
 	elif [[ "$style" == "pwidgets" ]]; then
@@ -21,7 +21,11 @@ launch_bar() {
 	fi
 }
 
-if [[ "$1" == "--material" ]]; then
+if [[ "$1" == "--minhchien" ]]; then
+	style="minhchien"
+	launch_bar
+
+elif [[ "$1" == "--material" ]]; then
 	style="material"
 	launch_bar
 

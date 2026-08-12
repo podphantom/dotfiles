@@ -1,0 +1,134 @@
+/**
+ * MinhChien Custom Cute & Elegant Rofi Theme
+ * Matches Polybar & Neovim Pastel Pill Aesthetics
+ */
+
+* {
+    font:                       "VictorMono Nerd Font Bold 11";
+    background:                 #1e1e2e;
+    background-alt:             #181825;
+    surface:                    #313244;
+    foreground:                 #cdd6f4;
+    selected-foreground:        #f5c2e7;
+    accent:                     #cba6f7;
+    urgent:                     #f38ba8;
+    border-color:               #313244;
+    
+    background-color:           transparent;
+    text-color:                 @foreground;
+    margin:                     0;
+    padding:                    0;
+    spacing:                    0;
+}
+
+window {
+    location:                   center;
+    anchor:                     center;
+    width:                      600px;
+    x-offset:                   0px;
+    y-offset:                   0px;
+
+    enabled:                    true;
+    margin:                     0px;
+    padding:                    0px;
+    border:                     2px solid;
+    border-color:               @accent;
+    border-radius:              16px;
+    background-color:           @background;
+    cursor:                     "default";
+}
+
+mainbox {
+    enabled:                    true;
+    spacing:                    10px;
+    margin:                     0px;
+    padding:                    20px;
+    background-color:           transparent;
+    children:                   [ "inputbar", "listview" ];
+}
+
+inputbar {
+    enabled:                    true;
+    spacing:                    10px;
+    margin:                     0px 0px 10px 0px;
+    padding:                    10px 16px;
+    border:                     1px solid;
+    border-color:               @surface;
+    border-radius:              12px;
+    background-color:           @background-alt;
+    text-color:                 @foreground;
+    children:                   [ "prompt", "entry" ];
+}
+
+prompt {
+    enabled:                    true;
+    background-color:           transparent;
+    text-color:                 @accent;
+}
+
+entry {
+    enabled:                    true;
+    background-color:           transparent;
+    text-color:                 @foreground;
+    cursor:                     text;
+    placeholder:                "Search applications...";
+    placeholder-color:          #6c7086;
+}
+
+listview {
+    enabled:                    true;
+    columns:                    1;
+    lines:                      8;
+    cycle:                      true;
+    dynamic:                    true;
+    scrollbar:                  false;
+    layout:                     vertical;
+    reverse:                    false;
+    fixed-height:               true;
+    fixed-columns:              true;
+    
+    spacing:                    6px;
+    margin:                     0px;
+    padding:                    0px;
+    background-color:           transparent;
+    text-color:                 @foreground;
+}
+
+element {
+    enabled:                    true;
+    spacing:                    12px;
+    margin:                     0px;
+    padding:                    8px 12px;
+    border-radius:              10px;
+    background-color:           transparent;
+    text-color:                 @foreground;
+    cursor:                     pointer;
+}
+
+element normal.normal {
+    background-color:           transparent;
+    text-color:                 @foreground;
+}
+
+element selected.normal {
+    background-color:           @surface;
+    text-color:                 @selected-foreground;
+    border:                     1px solid;
+    border-color:               @accent;
+}
+
+element-icon {
+    background-color:           transparent;
+    text-color:                 inherit;
+    size:                       24px;
+    cursor:                     inherit;
+}
+
+element-text {
+    background-color:           transparent;
+    text-color:                 inherit;
+    highlight:                  inherit;
+    cursor:                     inherit;
+    vertical-align:             0.5;
+    horizontal-align:           0.0;
+}

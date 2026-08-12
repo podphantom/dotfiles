@@ -1,0 +1,91 @@
+# =============================================================================
+# Zathura Configuration File
+# Location: ~/.config/zathura/zathurarc
+# Theme: Catppuccin Mocha (matching i3 / WezTerm / Neovim palette)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Color Scheme (Catppuccin Mocha)
+# -----------------------------------------------------------------------------
+set default-bg                  "#1e1e2e" # Base
+set default-fg                  "#cdd6f4" # Text
+
+set statusbar-fg                "#cdd6f4" # Text
+set statusbar-bg                "#181825" # Mantle
+
+set inputbar-bg                 "#181825" # Mantle
+set inputbar-fg                 "#cdd6f4" # Text
+
+set notification-bg             "#181825" # Mantle
+set notification-fg             "#cdd6f4" # Text
+set notification-error-bg       "#f38ba8" # Red
+set notification-error-fg       "#181825" # Mantle
+set notification-warning-bg     "#f9e2af" # Yellow
+set notification-warning-fg     "#181825" # Mantle
+
+set highlight-color             "rgba(137, 180, 250, 0.5)" # Blue
+set highlight-active-color      "rgba(245, 194, 231, 0.5)" # Pink
+
+set completion-bg               "#313244" # Surface0
+set completion-fg               "#cdd6f4" # Text
+set completion-highlight-bg     "#45475a" # Surface1
+set completion-highlight-fg     "#89b4fa" # Blue
+set completion-group-bg         "#181825" # Mantle
+set completion-group-fg         "#89b4fa" # Blue
+
+set index-bg                    "#1e1e2e" # Base
+set index-fg                    "#cdd6f4" # Text
+set index-active-bg             "#313244" # Surface0
+set index-active-fg             "#89b4fa" # Blue
+
+set render-loading-bg           "#1e1e2e" # Base
+set render-loading-fg           "#cdd6f4" # Text
+
+# Recolor options (Dark Mode Reading)
+set recolor-lightcolor          "#1e1e2e" # Background in recolor mode
+set recolor-darkcolor           "#cdd6f4" # Text color in recolor mode
+set recolor-keephue             "true"    # Preserve original image/diagram colors
+set recolor                     "false"   # Press 'r' to toggle recolor mode on demand
+
+# -----------------------------------------------------------------------------
+# General Settings & Preferences
+# -----------------------------------------------------------------------------
+# Selection & Clipboard (sync directly to system clipboard + / xclip)
+set selection-clipboard         "clipboard"
+
+# View & Layout Defaults
+set adjust-open                 "width"   # Automatically fit to window width on open
+set pages-per-row               1
+set scroll-page-aware           "true"
+set smooth-scroll               "true"
+set scroll-step                 50
+
+# Interface & Typography
+set font                        "JetBrainsMono Nerd Font 10"
+set statusbar-h-padding         10
+set statusbar-v-padding         6
+
+# Database & Search
+set database                    "sqlite"
+
+# -----------------------------------------------------------------------------
+# Custom Keybindings (Vim-Style Navigation)
+# -----------------------------------------------------------------------------
+# Recolor / Theme Toggle
+map r recolor
+map R reload
+
+# Navigation & Scrolling
+map u scroll half-up
+map d scroll half-down
+map D toggle_page_mode
+
+# Fit & Zoom Controls
+map a adjust_window bestfit
+map s adjust_window width
+map K zoom in
+map J zoom out
+
+# View Controls
+map i toggle_index
+map f toggle_fullscreen

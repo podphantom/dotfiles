@@ -42,7 +42,8 @@ return {
         })
     end,
     opts = {
-        restart_highlighter = true,
+        render_modes = { "n", "v", "c" },
+        restart_highlighter = false,
         heading = {
             sign = false,
             icons = { "󰎤 ", "󰎧 ", "󰎪 ", "󰎭 ", "󰎱 ", "󰎳 " },

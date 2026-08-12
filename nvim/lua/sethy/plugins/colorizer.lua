@@ -19,9 +19,7 @@ return {
                         css = true,
                         -- tailwind completions setup in nvim cmp
                         tailwind = {
-                            enable = true,
-                            lsp = true,
-                            update_names = true,
+                            enable = false,
                         },
                     }
                 },

@@ -56,15 +56,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
--- Highlight active window cursorline only
+-- Highlight active window cursorline only (disabled during Insert mode for zero typing delay)
 local cursorline_group = vim.api.nvim_create_augroup("ActiveCursorLine", { clear = true })
-vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufEnter" }, {
+vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufEnter", "InsertLeave" }, {
     group = cursorline_group,
     callback = function()
         vim.opt_local.cursorline = true
     end,
 })
-vim.api.nvim_create_autocmd({ "WinLeave" }, {
+vim.api.nvim_create_autocmd({ "WinLeave", "InsertEnter" }, {
     group = cursorline_group,
     callback = function()
         vim.opt_local.cursorline = false

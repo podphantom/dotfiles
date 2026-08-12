@@ -74,9 +74,9 @@ local config = {
 	cursor_blink_ease_in = "Constant",
 	cursor_blink_ease_out = "Constant",
 	cursor_blink_rate = 0,
-	enable_wayland = true,
+	enable_wayland = false,
 	color_scheme = "Dracula",
-	window_background_opacity = 0.85,
+	window_background_opacity = 0.88,
 	text_background_opacity = 1.0,
 	window_decorations = "RESIZE",
 	hide_tab_bar_if_only_one_tab = false,
@@ -158,7 +158,7 @@ local config = {
 	-- https://github.com/wez/wezterm/issues/2756
 	webgpu_preferred_adapter = gpus[1],
 	prefer_egl = true,
-	front_end = "WebGpu",
+	front_end = "OpenGL",
 }
 
 config.hyperlink_rules = {

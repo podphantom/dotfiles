@@ -1,0 +1,20 @@
+configuration {
+    modi:                       "drun,run,filebrowser,window";
+    show-icons:                 true;
+    display-drun:               "⚡ Apps:";
+    display-run:                "󰆍 Run:";
+    display-filebrowser:        "󰉋 Files:";
+    display-window:             "󰍹 Windows:";
+    drun-display-format:        "{name}";
+    window-format:              "{w} · {c} · {t}";
+
+    /* Instant Launch & Desktop Caching Optimizations */
+    drun-use-desktop-cache:     true;
+    drun-reload-desktop-cache:  true;
+    drun-match-fields:          "name,exec,categories";
+    matching:                   "normal";
+    tokenize:                   true;
+    disable-history:            false;
+}
+
+@theme "minhchien"

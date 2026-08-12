@@ -5,7 +5,7 @@ return {
         config = function()
             local npairs = require("nvim-autopairs")
             npairs.setup({
-                check_ts = true,
+                check_ts = false,
                 fast_wrap = {},
             })
 

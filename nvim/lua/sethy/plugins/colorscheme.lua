@@ -304,6 +304,11 @@ return {
                     return {
                         ColorColumn = { bg = "#1C1C21" },
 
+                        LineNr = { fg = "#a6adc8", bold = true },
+                        LineNrAbove = { fg = "#a6adc8", bold = true },
+                        LineNrBelow = { fg = "#a6adc8", bold = true },
+                        CursorLineNr = { fg = "#f5c2e7", bold = true },
+
                         DiagnosticError = { fg = colors.red, bold = true },
                         DiagnosticWarn = { fg = colors.yellow, bold = true },
                         DiagnosticInfo = { fg = colors.sky },
@@ -374,6 +379,12 @@ return {
                     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#ffb86c", bg = "#3b3424", bold = true, italic = false })
                     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = "#8be9fd", bg = "#25343d", italic = false })
                     vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = "#50fa7b", bg = "#233930", italic = false })
+
+                    -- Bright, highly noticeable line numbers & relative line numbers
+                    vim.api.nvim_set_hl(0, "LineNr", { fg = "#a6adc8", bold = true, italic = false })
+                    vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#a6adc8", bold = true, italic = false })
+                    vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#a6adc8", bold = true, italic = false })
+                    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#f5c2e7", bold = true, italic = false })
                 end,
             })
         end,

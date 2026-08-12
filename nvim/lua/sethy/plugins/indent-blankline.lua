@@ -10,9 +10,8 @@ return {
         scope = {
             enabled = true,
             char = "│",
-            show_start = true,
-            show_end = true,
-            injected_languages = true,
+            show_start = false,
+            show_end = false,
             priority = 1024,
             highlight = {
                 "RainbowYellow",
