@@ -287,8 +287,8 @@ return {
                     percentage = 0.15,
                 },
                 styles = {
-                    comments = { "italic" },
-                    conditionals = { "italic" },
+                    comments = {},
+                    conditionals = {},
                     loops = {},
                     functions = {},
                     keywords = { "bold" },
@@ -303,6 +303,23 @@ return {
                 custom_highlights = function(colors)
                     return {
                         ColorColumn = { bg = "#1C1C21" },
+
+                        DiagnosticError = { fg = colors.red, bold = true },
+                        DiagnosticWarn = { fg = colors.yellow, bold = true },
+                        DiagnosticInfo = { fg = colors.sky },
+                        DiagnosticHint = { fg = colors.teal },
+
+                        DiagnosticVirtualTextError = { fg = colors.red, bg = "#3b222c", bold = true },
+                        DiagnosticVirtualTextWarn = { fg = colors.yellow, bg = "#3b3424", bold = true },
+                        DiagnosticVirtualTextInfo = { fg = colors.sky, bg = "#25343d" },
+                        DiagnosticVirtualTextHint = { fg = colors.teal, bg = "#233930" },
+
+                        ["@module"] = { style = {} },
+                        ["@namespace"] = { style = {} },
+                        ["@type.builtin"] = { style = {} },
+                        ["@variable.builtin"] = { style = {} },
+                        ["@function.builtin"] = { style = {} },
+                        ["@attribute"] = { style = {} },
 
                         -- Pmenu styling (similar to your rose-pine)
                         Pmenu = { bg = colors.transparent_background, fg = colors.text },
@@ -319,7 +336,9 @@ return {
                     treesitter = true,
                     native_lsp = {
                         enabled = true,
-                        virtual_text = { errors = { "italic" }, hints = { "italic" } },
+                        virtual_text = { errors = {}, hints = {}, warnings = {}, information = {} },
+                        underlines = { errors = {}, hints = {}, warnings = {}, information = {} },
+                        inlay_hints = { background = true },
                     },
                     lsp_trouble = true,
                     lsp_saga = true,
@@ -335,7 +354,28 @@ return {
                 },
             })
 
-            -- vim.cmd.colorscheme("catppuccin")
+            vim.api.nvim_create_autocmd("ColorScheme", {
+                pattern = "*",
+                callback = function()
+                    local highlights = vim.api.nvim_get_hl(0, {})
+                    for name, hl in pairs(highlights) do
+                        if hl.italic then
+                            hl.italic = false
+                            vim.api.nvim_set_hl(0, name, hl)
+                        end
+                    end
+
+                    vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#ff5555", bold = true, italic = false })
+                    vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = "#ffb86c", bold = true, italic = false })
+                    vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = "#8be9fd", italic = false })
+                    vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = "#50fa7b", italic = false })
+
+                    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "#ff5555", bg = "#3b222c", bold = true, italic = false })
+                    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#ffb86c", bg = "#3b3424", bold = true, italic = false })
+                    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = "#8be9fd", bg = "#25343d", italic = false })
+                    vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = "#50fa7b", bg = "#233930", italic = false })
+                end,
+            })
         end,
     },
 }

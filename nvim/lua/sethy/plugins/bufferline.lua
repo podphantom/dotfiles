@@ -123,7 +123,7 @@ return {
                     },
                     buffer_visible = {
                         fg = "#787c99",
-                        italic = true,
+                        italic = false,
                     },
                     close_button = {
                         fg = "#565f89",

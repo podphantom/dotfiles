@@ -45,6 +45,47 @@ return {
                 capabilities = blink.get_lsp_capabilities(capabilities)
             end
 
+            -- Notification suppression handler table
+            if vim.g.jdtls_suppress_notifications == nil then
+                vim.g.jdtls_suppress_notifications = true
+            end
+
+            local handlers = {
+                ["$/progress"] = function(err, result, ctx, cfg)
+                    if vim.g.jdtls_suppress_notifications then
+                        return
+                    end
+                    local default_handler = vim.lsp.handlers["$/progress"]
+                    if default_handler then
+                        default_handler(err, result, ctx, cfg)
+                    end
+                end,
+                ["language/status"] = function(err, result, ctx, cfg)
+                    if vim.g.jdtls_suppress_notifications then
+                        return
+                    end
+                    local default_handler = vim.lsp.handlers["language/status"]
+                    if default_handler then
+                        default_handler(err, result, ctx, cfg)
+                    end
+                end,
+                ["window/showMessage"] = function(err, result, ctx, cfg)
+                    if vim.g.jdtls_suppress_notifications then
+                        if result and result.type and result.type == vim.lsp.protocol.MessageType.Error then
+                            local default_handler = vim.lsp.handlers["window/showMessage"]
+                            if default_handler then
+                                default_handler(err, result, ctx, cfg)
+                            end
+                        end
+                        return
+                    end
+                    local default_handler = vim.lsp.handlers["window/showMessage"]
+                    if default_handler then
+                        default_handler(err, result, ctx, cfg)
+                    end
+                end,
+            }
+
             local config = {
                 cmd = {
                     "java",
@@ -63,6 +104,7 @@ return {
                 },
                 root_dir = root_dir,
                 capabilities = capabilities,
+                handlers = handlers,
                 init_options = {
                     bundles = bundles,
                     extendedClientCapabilities = jdtls.extendedClientCapabilities,
@@ -109,6 +151,23 @@ return {
                         require("jdtls").setup_dap({ hotcodereplace = "auto" })
                     end)
 
+                    local function toggle_notifications()
+                        vim.g.jdtls_suppress_notifications = not vim.g.jdtls_suppress_notifications
+                        pcall(function()
+                            local snacks = require("snacks")
+                            if snacks and snacks.notifier then
+                                snacks.notifier.hide()
+                            end
+                        end)
+                        if vim.g.jdtls_suppress_notifications then
+                            vim.notify("JDTLS Notifications: Muted (Spam Disabled)", vim.log.levels.WARN, { title = "JDTLS" })
+                        else
+                            vim.notify("JDTLS Notifications: Enabled", vim.log.levels.INFO, { title = "JDTLS" })
+                        end
+                    end
+
+                    vim.api.nvim_buf_create_user_command(bufnr, "JdtlsToggleNotifications", toggle_notifications, { desc = "Toggle JDTLS notifications" })
+
                     -- Keymaps
                     local opts = { buffer = bufnr, silent = true }
                     opts.desc = "Organize Imports"
@@ -123,6 +182,8 @@ return {
                     vim.keymap.set("n", "<leader>jt", jdtls.test_class, opts)
                     opts.desc = "Test Nearest Method"
                     vim.keymap.set("n", "<leader>tm", jdtls.test_nearest_method, opts)
+                    opts.desc = "Toggle Notifications (Mute/Unmute Spam)"
+                    vim.keymap.set("n", "<leader>jn", toggle_notifications, opts)
                 end,
             }
 
