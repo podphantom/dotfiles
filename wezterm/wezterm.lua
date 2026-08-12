@@ -54,8 +54,13 @@ local local_config = load_local_config("local")
 --- Config
 ---------------------------------------------------------------
 local config = {
-	font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" }),
-	font_size = 11.0,
+
+	font = wezterm.font_with_fallback({
+		{ family = "VictorMono Nerd Font", weight = "Medium" },
+		{ family = "JetBrainsMono Nerd Font", weight = "Medium" },
+	}),
+	font_size = 11.5,
+
 	check_for_updates = false,
 	use_ime = true,
 	send_composed_key_when_left_alt_is_pressed = false,
@@ -64,17 +69,17 @@ local config = {
 	use_dead_keys = false,
 	warn_about_missing_glyphs = false,
 	-- enable_kitty_graphics = false,
-	max_fps = 60,
+	max_fps = 240,
 	animation_fps = 1,
 	cursor_blink_ease_in = "Constant",
 	cursor_blink_ease_out = "Constant",
 	cursor_blink_rate = 0,
 	enable_wayland = true,
-	color_scheme = "Catppuccin Mocha", -- World #1 developer theme for low eye strain & calm pastel contrast
-	window_background_opacity = 0.95, -- Ideal 95% opacity: eliminates wallpaper distraction while keeping modern glass feel
+	color_scheme = "Dracula",
+	window_background_opacity = 0.85,
 	text_background_opacity = 1.0,
 	window_decorations = "RESIZE",
-	hide_tab_bar_if_only_one_tab = true,
+	hide_tab_bar_if_only_one_tab = false,
 	adjust_window_size_when_changing_font_size = false,
 	selection_word_boundary = " \t\n{}[]()\"'`,;:│=&!%",
 	window_padding = {
@@ -83,47 +88,50 @@ local config = {
 		top = 10,
 		bottom = 10,
 	},
-    initial_cols = 100,
-    initial_rows = 24,
+	initial_cols = 100,
+	initial_rows = 24,
 	use_fancy_tab_bar = false,
-	tab_max_width = 32,
+	tab_max_width = 36,
 	notification_handling = "SuppressFromFocusedTab",
 	window_frame = {
-		active_titlebar_bg = "#11111b",
-		inactive_titlebar_bg = "#11111b",
+		active_titlebar_bg = "#1e1f29",
+		inactive_titlebar_bg = "#1e1f29",
 	},
 	colors = {
-		foreground = "#cdd6f4", -- Soft pastel white (low glare, zero eye strain)
-		cursor_bg = "#a6e3a1", -- Soothing Sage Green (relaxed, low eye strain, zero glare)
-		cursor_border = "#a6e3a1",
-		cursor_fg = "#11111b",
-		selection_bg = "#45475a",
-		selection_fg = "#cdd6f4",
+		foreground = "#f8f8f2",
+		background = "#282a36",
+		cursor_bg = "#bd93f9",
+		cursor_border = "#bd93f9",
+		cursor_fg = "#282a36",
+		selection_bg = "#44475a",
+		selection_fg = "#f8f8f2",
 		ansi = {
-			"#1e1e2e", -- Black
-			"#f38ba8", -- Red
-			"#a6e3a1", -- Green
-			"#f9e2af", -- Yellow
-			"#89b4fa", -- Blue (Light pastel blue background)
-			"#cba6f7", -- Magenta
-			"#94e2d5", -- Cyan
-			"#cdd6f4", -- White
+			"#21222c", -- Black
+			"#ff5555", -- Red
+			"#50fa7b", -- Green
+			"#f1fa8c", -- Yellow
+			"#bd93f9", -- Blue / Purple
+			"#ff79c6", -- Magenta
+			"#8be9fd", -- Cyan
+			"#f8f8f2", -- White
 		},
 		brights = {
-			"#45475a", -- Bright Black
-			"#f38ba8", -- Bright Red
-			"#a6e3a1", -- Bright Green
-			"#f9e2af", -- Bright Yellow
-			"#b4befe", -- Bright Blue (Light pastel blue)
-			"#cba6f7", -- Bright Magenta
-			"#94e2d5", -- Bright Cyan
-			"#bac2de", -- Bright White
+			"#6272a4", -- Bright Black
+			"#ff6e6e", -- Bright Red
+			"#69ff94", -- Bright Green
+			"#ffffa5", -- Bright Yellow
+			"#d6acff", -- Bright Blue
+			"#ff92df", -- Bright Magenta
+			"#a4ffff", -- Bright Cyan
+			"#ffffff", -- Bright White
 		},
 		tab_bar = {
-			background = "#11111b",
-			active_tab = { bg_color = "#313244", fg_color = "#cdd6f4", intensity = "Bold" },
-			new_tab = { bg_color = "#181825", fg_color = "#a6adc8", intensity = "Normal" },
-			new_tab_hover = { bg_color = "#313244", fg_color = "#a6e3a1", intensity = "Bold" },
+			background = "#1e1f29",
+			active_tab = { bg_color = "#44475a", fg_color = "#bd93f9", intensity = "Bold" },
+			inactive_tab = { bg_color = "#21222c", fg_color = "#6272a4", intensity = "Normal" },
+			inactive_tab_hover = { bg_color = "#44475a", fg_color = "#ff79c6", intensity = "Bold" },
+			new_tab = { bg_color = "#21222c", fg_color = "#6272a4", intensity = "Normal" },
+			new_tab_hover = { bg_color = "#44475a", fg_color = "#50fa7b", intensity = "Bold" },
 		},
 	},
 	inactive_pane_hsb = {

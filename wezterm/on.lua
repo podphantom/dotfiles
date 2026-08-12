@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 local utils = require("utils")
 local keybinds = require("keybinds")
-local scheme = wezterm.get_builtin_color_schemes()["nord"]
+local scheme = wezterm.get_builtin_color_schemes()["Dracula"] or wezterm.get_builtin_color_schemes()["nord"]
 local act = wezterm.action
 local bell_indicator = wezterm.plugin.require("https://github.com/yutkat/tab-bell-indicator.wezterm")
 
@@ -16,14 +16,39 @@ local function find_mux_tab(tab_id)
 	return nil
 end
 
+local function get_process_icon(title)
+	local t = title:lower()
+	if t:find("nvim") or t:find("vim") then
+		return " "
+	elseif t:find("zsh") or t:find("bash") or t:find("sh") then
+		return " "
+	elseif t:find("java") or t:find("javac") then
+		return " "
+	elseif t:find("python") or t:find("py") then
+		return " "
+	elseif t:find("git") then
+		return " "
+	elseif t:find("node") or t:find("npm") then
+		return " "
+	elseif t:find("docker") then
+		return " "
+	elseif t:find("htop") or t:find("btop") then
+		return " "
+	elseif t:find("cargo") or t:find("rust") then
+		return " "
+	end
+	return " "
+end
+
 -- selene: allow(unused_variable)
 ---@diagnostic disable-next-line: unused-local
 local function create_tab_title(tab, tabs, panes, config, hover, max_width)
 	local user_title = tab.active_pane.user_vars.panetitle
 	if user_title ~= nil and #user_title > 0 then
-		return { { Text = tab.tab_index + 1 .. ":" .. user_title } }
+		return { { Text = " " .. tab.tab_index + 1 .. ":" .. user_title .. " " } }
 	end
 
+	local icon = get_process_icon(tab.active_pane.title)
 	local copy_mode, n = string.gsub(tab.active_pane.title, "(.+) mode: .*", "%1", 1)
 	if copy_mode == nil or n == 0 then
 		copy_mode = ""
@@ -31,7 +56,7 @@ local function create_tab_title(tab, tabs, panes, config, hover, max_width)
 		copy_mode = copy_mode .. ": "
 	end
 
-	local prefix = copy_mode .. tab.tab_index + 1 .. ":"
+	local prefix = " " .. copy_mode .. (tab.tab_index + 1) .. ": " .. icon
 	local prefix_width = #prefix
 	local active_title = wezterm.truncate_right(tab.active_pane.title, max_width - prefix_width)
 
@@ -54,6 +79,7 @@ local function create_tab_title(tab, tabs, panes, config, hover, max_width)
 		for _, s in ipairs(styled_title(active_title)) do
 			table.insert(segments, s)
 		end
+		table.insert(segments, { Text = " " })
 		return segments
 	end
 
@@ -83,6 +109,7 @@ local function create_tab_title(tab, tabs, panes, config, hover, max_width)
 		table.insert(segments, { Attribute = { Intensity = "Normal" } })
 		table.insert(segments, { Attribute = { Italic = false } })
 	end
+	table.insert(segments, { Text = " " })
 	return segments
 end
 
@@ -97,19 +124,18 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	local solid_left_arrow = utf8.char(0x2590)
 	-- selene: allow(undefined_variable)
 	local solid_right_arrow = utf8.char(0x258c)
-	-- https://github.com/wez/wezterm/issues/807
-	-- local edge_background = scheme.background
-	-- https://github.com/wez/wezterm/blob/61f01f6ed75a04d40af9ea49aa0afe91f08cb6bd/config/src/color.rs#L245
-	local edge_background = "#2e3440"
-	local background = scheme.ansi[1]
-	local foreground = scheme.ansi[5]
+
+	-- Dracula Tab Bar Colors
+	local edge_background = "#1e1f29"
+	local background = "#21222c"
+	local foreground = "#6272a4"
 
 	if tab.is_active then
-		background = scheme.brights[1]
-		foreground = scheme.brights[8]
+		background = "#44475a"
+		foreground = "#bd93f9"
 	elseif hover then
-		background = scheme.cursor_bg
-		foreground = scheme.cursor_fg
+		background = "#44475a"
+		foreground = "#ff79c6"
 	end
 	local edge_foreground = background
 
