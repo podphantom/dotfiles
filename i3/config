@@ -1,0 +1,204 @@
+# =============================================================================
+# i3wm Configuration File (Optimized for WezTerm, Neovim, & Modern Developer Workflow)
+# Location: ~/.config/i3/config
+# =============================================================================
+
+# Define Modifier Key (Mod4 = Super / Windows key)
+set $mod Mod4
+
+# Set Vim directional keys
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Set Terminal & Application Launcher
+set $term wezterm
+set $launcher rofi -show drun || dmenu_run
+
+# Font for window titles and bar
+font pango:JetBrainsMono Nerd Font 10, monospace 10
+
+# -----------------------------------------------------------------------------
+# Autostart Applications & Compositor
+# -----------------------------------------------------------------------------
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id nm-applet
+exec --no-startup-id dunst
+exec --no-startup-id greenclip daemon
+exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf 2>/dev/null
+exec --no-startup-id feh --bg-fill ~/.config/wallpaper.jpg 2>/dev/null
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# -----------------------------------------------------------------------------
+# Window Aesthetics & Gaps
+# -----------------------------------------------------------------------------
+# Border styling
+default_border pixel 2
+default_floating_border pixel 2
+for_window [class=".*"] title_format "<b>%title</b>"
+
+# Window Gaps (requires i3 >= 4.22 or i3-gaps)
+# gaps inner 8
+# gaps outer 4
+# smart_gaps on
+# smart_borders on
+
+# Color Scheme (Catppuccin Mocha Theme with Vibrant Focused Accent)
+# class                 border  bground text    indicator child_border
+client.focused          #cba6f7 #1e1e2e #cdd6f4 #cba6f7   #cba6f7
+client.focused_inactive #45475a #1e1e2e #bac2de #45475a   #313244
+client.unfocused        #313244 #1e1e2e #a6adc8 #313244   #313244
+client.urgent           #f38ba8 #1e1e2e #cdd6f4 #f38ba8   #f38ba8
+client.placeholder      #181825 #1e1e2e #cdd6f4 #181825   #181825
+client.background       #1e1e2e
+
+# -----------------------------------------------------------------------------
+# Keybindings: System & Applications
+# -----------------------------------------------------------------------------
+# Launch Terminal & Launcher
+bindsym $mod+Return exec $term
+bindsym $mod+d exec $launcher
+bindsym $mod+Shift+d exec rofi -show run || dmenu_run
+bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+bindsym $mod+q kill
+
+# Audio volume controls (PulseAudio / PipeWire)
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/brightness.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/brightness.sh down
+
+# Screenshot Keybindings (Flameshot GUI with ImageMagick fallback)
+# Area / Selected region screenshot -> Super + Shift + S or Shift + Print
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui || bash -c 'mkdir -p ~/Pictures/Screenshots && file=~/Pictures/Screenshots/screenshot_area_$(date +%Y%m%d_%H%M%S).png && import "$file" && xclip -selection clipboard -t image/png "$file"'
+bindsym Shift+Print exec --no-startup-id flameshot gui || bash -c 'mkdir -p ~/Pictures/Screenshots && file=~/Pictures/Screenshots/screenshot_area_$(date +%Y%m%d_%H%M%S).png && import "$file" && xclip -selection clipboard -t image/png "$file"'
+
+# Fullscreen screenshot -> Super + Shift + P or Print
+bindsym $mod+Shift+p exec --no-startup-id flameshot full -c -p ~/Pictures/Screenshots || bash -c 'mkdir -p ~/Pictures/Screenshots && file=~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).png && import -window root "$file" && xclip -selection clipboard -t image/png "$file"'
+bindsym Print exec --no-startup-id flameshot full -c -p ~/Pictures/Screenshots || bash -c 'mkdir -p ~/Pictures/Screenshots && file=~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).png && import -window root "$file" && xclip -selection clipboard -t image/png "$file"'
+
+# -----------------------------------------------------------------------------
+# Navigation & Window Management (Vim Keybindings)
+# -----------------------------------------------------------------------------
+# Change focus (Vim keys & Arrow keys)
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window (Vim keys & Arrow keys)
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split orientations
+bindsym $mod+b split h
+bindsym $mod+v split v
+
+# Layout controls
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Floating window toggle
+bindsym $mod+Shift+space floating toggle
+
+# Move focus between tiling / floating windows
+bindsym $mod+Alt+space focus mode_toggle
+
+# Scratchpad controls
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# -----------------------------------------------------------------------------
+# Workspaces Configuration
+# -----------------------------------------------------------------------------
+set $ws1 "1:  dev"
+set $ws2 "2: 󰈹 web"
+set $ws3 "3: 󰅩 code"
+set $ws4 "4: 󰓓 sys"
+set $ws5 "5: 󰎄 media"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Workspace navigation (Next / Previous)
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+# -----------------------------------------------------------------------------
+# Session Management & Reloading
+# -----------------------------------------------------------------------------
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Resize Mode
+mode "resize" {
+    bindsym $left resize shrink width 10 px or 10 ppt
+    bindsym $down resize grow height 10 px or 10 ppt
+    bindsym $up resize shrink height 10 px or 10 ppt
+    bindsym $right resize grow width 10 px or 10 ppt
+
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# -----------------------------------------------------------------------------
+# Status Bar Configuration (Polybar)
+# -----------------------------------------------------------------------------
+exec_always --no-startup-id ~/.config/polybar/launch.sh --hack 2>/dev/null
